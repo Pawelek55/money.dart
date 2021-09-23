@@ -49,8 +49,9 @@ class _MapBackedCurrencies implements Currencies {
       : _currencies = Map.fromIterable(currencies,
             key: (currency) => (currency as Currency).code);
 
+  @override
   Currency find(String code) {
-    return _currencies[code];
+    return _currencies[code]!;
   }
 }
 
@@ -60,14 +61,13 @@ class _AggregatedCurrencies implements Currencies {
   _AggregatedCurrencies(Iterable<Currencies> directories)
       : _directories = directories.toList(growable: false);
 
+  @override
   Currency find(String code) {
     for (final directory in _directories) {
       final currency = directory.find(code);
-      if (currency != null) {
-        return currency;
-      }
+      return currency;
     }
 
-    return null;
+    return Currency.withCodeAndPrecision('USD', 2);
   }
 }

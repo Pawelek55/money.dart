@@ -26,18 +26,21 @@ import 'package:test/test.dart';
 import 'package:money/money.dart';
 
 class _TestEncoder implements MoneyEncoder<String> {
+  @override
   String encode(MoneyData data) {
     return '${data.currency.code} ${data.subunits}';
   }
 }
 
 class _TestDecoder implements MoneyDecoder<MoneyData> {
+  @override
   MoneyData decode(MoneyData encoded) {
     return encoded;
   }
 }
 
 class _FailingDecoder implements MoneyDecoder<String> {
+  @override
   MoneyData decode(String encoded) {
     throw FormatException();
   }
@@ -47,14 +50,6 @@ void main() {
   final usd = Currency.withCodeAndPrecision('USD', 2);
 
   group('MoneyData', () {
-    test('throws an error during instantiation with null subunits', () {
-      expect(() => MoneyData.from(null, usd), throwsArgumentError);
-    });
-
-    test('throws an error during instantiation with null currency', () {
-      expect(() => MoneyData.from(BigInt.from(100), null), throwsArgumentError);
-    });
-
     test('has properties: subunits, currency', () {
       final subunits = BigInt.from(100);
 

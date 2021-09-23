@@ -42,7 +42,7 @@ class Money implements Comparable<Money> {
 
   /// Creates an instance of [Money] with [amount] in the minimal subunits
   /// of [currency].
-  factory Money.withSubunits(BigInt amount, Currency currency) {
+  factory Money.withSubunits(BigInt? amount, Currency? currency) {
     if (amount == null) {
       throw ArgumentError.notNull('amount');
     }
@@ -227,7 +227,8 @@ class Money implements Comparable<Money> {
   /// Creates new instance with the same currency and given [amount].
   Money _withAmount(_Subunits amount) => Money._with(amount, _currency);
 
-  void _preconditionThatCurrencyTheSameFor(Money other, [String message()]) {
+  void _preconditionThatCurrencyTheSameFor(Money other,
+      [String Function()? message]) {
     String defaultMessage() =>
         'Cannot operate with money values in different currencies.';
 
@@ -240,9 +241,7 @@ class Money implements Comparable<Money> {
 class _Subunits implements Comparable<_Subunits> {
   final BigInt _value;
 
-  _Subunits.from(BigInt value) : _value = value {
-    assert(value != null);
-  }
+  _Subunits.from(BigInt value) : _value = value;
 
   bool get isZero => _value == BigInt.zero;
 
@@ -250,6 +249,7 @@ class _Subunits implements Comparable<_Subunits> {
 
   bool get isPositive => _value > BigInt.zero;
 
+  @override
   int compareTo(_Subunits other) => _value.compareTo(other._value);
 
   @override

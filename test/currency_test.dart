@@ -38,14 +38,10 @@ void main() {
     });
 
     test('cannot be instantiated with null or empty code', () {
-      expect(() => Currency.withCodeAndPrecision(null, 0), throwsArgumentError);
       expect(() => Currency.withCodeAndPrecision('', 0), throwsArgumentError);
     });
 
     test('cannot be instantiated with null or negative precision', () {
-      expect(() => Currency.withCodeAndPrecision('SOME', null),
-          throwsArgumentError);
-
       expect(
           () => Currency.withCodeAndPrecision('SOME', -1), throwsArgumentError);
       expect(

@@ -30,7 +30,7 @@ void main() {
     final usd = Currency.withCodeAndPrecision('USD', 2);
     final eur = Currency.withCodeAndPrecision('EUR', 2);
 
-    Currencies currencies;
+    late Currencies currencies;
 
     setUp(() {
       currencies = Currencies.from([usd, eur]);

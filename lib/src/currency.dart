@@ -38,10 +38,10 @@ class Currency {
 
   /// Creates a currency with a given [code] and [precision].
   Currency.withCodeAndPrecision(this.code, this.precision) {
-    if (code == null || code.isEmpty) {
+    if (code.isEmpty) {
       throw ArgumentError.value(code, 'code', 'Must be a non-empty string.');
     }
-    if (precision == null || precision.isNegative) {
+    if (precision.isNegative) {
       throw ArgumentError.value(
           precision, 'precision', 'Must be a non-negative value.');
     }
